@@ -1,5 +1,4 @@
-readme first.
-a pull from local - vscode.
-a change in reomte repo.
-again a change from local repo.
+task1. GitSetup Done.
+task2. react setup done. 
+
 
