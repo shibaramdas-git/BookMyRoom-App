@@ -9,6 +9,7 @@
   "author": "Shibaram Das",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.3",
     "mongoose": "^8.2.1",
     "router": "^1.3.8"

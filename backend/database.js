@@ -8,7 +8,6 @@ async function main () {
         console.log(err);
     }
 }
-
 main();
 
 module.exports = mongoose;

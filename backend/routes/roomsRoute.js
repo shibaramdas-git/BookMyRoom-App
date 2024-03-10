@@ -5,8 +5,8 @@ const router = express.Router();    //lets get all powers of routing
 const Room = require('../models/room');
 
 // lets build Api endpoints related to rooms
-// 1st Endpoint  (api/rooms/XXXX)
-router.get("/getallrooms", async (req, res) => {
+// 1st Endpoint  (api/rooms/...)
+router.get('/getallrooms', async (req, res) => {
     try {
         const rooms = await Room.find();        //main code.
         res.send(rooms);                        //Check it @ postman
