@@ -8,7 +8,10 @@ app.listen(port, () => console.log('Server started on port 5000'));
 const dbConfig = require('./database');
 
 const roomsRoute = require('./routes/roomsRoute');
+const usersRoute = require('./routes/usersRoute');
+
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 app.use('/api/rooms', roomsRoute);
+app.use('/api/users', usersRoute);

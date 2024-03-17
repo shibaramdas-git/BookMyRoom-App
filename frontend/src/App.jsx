@@ -1,8 +1,11 @@
 import './App.css'
-import { Navbar } from './components/Navbar'
-import { BooknowScreen } from './screens/BooknowScreen'
+import Navbar from './components/Navbar'
+import Booknowscreen from './screens/Booknowscreen'
 import Homescreen from './screens/Homescreen'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import Loginscreen from './screens/Loginscreen'
+import Registerscreen from './screens/Registerscreen'
+
+import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
 
 
 function App() {
@@ -14,7 +17,10 @@ function App() {
         <Routes>
         
           <Route path='/home' element={<Homescreen />} />
-          <Route path='/book/:roomid' element={<BooknowScreen />} />
+          <Route path='/book/:roomid' element={<Booknowscreen />} />
+          <Route path='/register' element={<Registerscreen />} />
+          <Route path='/login' element={<Loginscreen />} />
+
         
         </Routes>
 

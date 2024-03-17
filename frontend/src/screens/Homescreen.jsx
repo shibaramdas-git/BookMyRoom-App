@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable react/jsx-key */
+import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Room } from '../components/Room';
+import { Loading } from '../components/Loading';
+import { Error } from '../components/Error';
 
 function Homescreen() {
   const [rooms, setRooms] = useState([]);
@@ -11,7 +14,7 @@ function Homescreen() {
     async function fetchData() {
       try {
         setLoading(true);
-        const data = (await axios.get('http://localhost:5000/api/rooms/getallrooms')).data;
+        const data = (await axios.get('http://localhost:5000/api/rooms/getallrooms')).data; //data? extracting data from res object
         setRooms(data);
         setLoading(false);
 
@@ -26,15 +29,15 @@ function Homescreen() {
   }, []);
 
   return (
-    <div id='home-screen' className='flex justify-end w-full'>
+    <div id='home-screen' className='flex justify-end w-full  '>
       <div id='room-container' className='flex flex-col content-evenly w-2/3 px-3 border-l'>
         {loading ?
-          (<h1>Loading...</h1>)
-          : error ?
-            (<h1>Error...</h1>)
-            : (rooms.map(room => {
+          (<Loading />)
+          : (rooms.length > 0) ?                //if loading is false => Check response from apicall got or not??
+              (rooms.map(room => {
               return <Room room={room} />
-            }))
+              }))
+            : (<Error />)    
         }
       </div>
     </div>
