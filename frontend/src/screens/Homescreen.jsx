@@ -14,6 +14,7 @@ function Homescreen() {
   const [error, setError] = useState();
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
+  const [duplicateRooms, setDuplicateRooms] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,6 +24,7 @@ function Homescreen() {
           await axios.get("http://localhost:5000/api/rooms/getallrooms")
         ).data; //data? extracting data from res object
         setRooms(data);
+        setDuplicateRooms(data);
         setLoading(false);
       } catch (error) {
         setError(true);
@@ -36,7 +38,39 @@ function Homescreen() {
   function filterByDate(dates) {
     //RangePicker returns[] of dates in a complicated format
     setFromDate(moment(dates[0].$d).format("DD-MM-YYYY")); //  moment simplifies to -'dd-mm-yyy format
-    setToDate(moment(dates[1].$d).format("DD-MM-YYYY"));
+    setToDate(moment(dates[1].$d).format("DD-MM-YYYY")); //  dates[1].$d -- to get only date "dd-mm-yyyy"
+
+    var tempRooms = [];
+    var availability = false;
+    for (const room of duplicateRooms) {
+      if (room.currentBookings.length > 0) {
+        for (const booking of room.currentBookings) {
+          if (
+            !moment(moment(dates[0].$d).format("DD-MM-YYYY")).isBetween(
+              booking.fromDate,
+              booking.toDate
+            ) &&
+            !moment(moment(dates[1].$d).format("DD-MM-YYYY")).isBetween(
+              booking.fromDate,
+              booking.toDate
+            )
+          ) {
+            if (
+              moment(dates[0].$d).format("DD-MM-YYYY") !== booking.fromDate &&
+              moment(dates[0].$d).format("DD-MM-YYYY") !== booking.toDate &&
+              moment(dates[1].$d).format("DD-MM-YYYY") !== booking.fromDate &&
+              moment(dates[1].$d).format("DD-MM-YYYY") !== booking.toDate
+            ) {
+              availability = true;
+            }
+          }
+        }
+      }
+      if (availability == true || room.currentBookings.length == 0) {
+        tempRooms.push(room);
+      }
+      setRooms(tempRooms);
+    }
   }
 
   return (

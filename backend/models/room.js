@@ -8,7 +8,7 @@ const roomSchema = mongoose.Schema({
     rentPerDay: {type: Number, required: true},
     type: {type: String, required: true},
     imageUrls: [],
-    currentBookings: {type: Number, required: true},
+    currentBookings: [],
     description: {type: String, required: true},
 }, {timestamps: true}   );
 

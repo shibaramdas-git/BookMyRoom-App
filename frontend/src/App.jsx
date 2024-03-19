@@ -5,7 +5,7 @@ import Homescreen from './screens/Homescreen'
 import Loginscreen from './screens/Loginscreen'
 import Registerscreen from './screens/Registerscreen'
 
-import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Routes>
         
           <Route path='/home' element={<Homescreen />} />
-          <Route path='/book/:roomid/:fromDate/:toDate' element={<Booknowscreen />} />
+          <Route path='/book/:roomId/:fromDate/:toDate' element={<Booknowscreen />} />
           <Route path='/register' element={<Registerscreen />} />
           <Route path='/login' element={<Loginscreen />} />
 

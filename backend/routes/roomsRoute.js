@@ -17,11 +17,10 @@ router.get('/getallrooms', async (req, res) => {
 
 // 2nd Api endpoint
 router.post('/getroombyid', async (req, res) => {
-    const roomid = req.body.roomid;
-    console.log(roomid)
+    const roomId = req.body.roomId;
 
     try {
-    const room = await Room.findOne({ _id : roomid});        //main code.
+    const room = await Room.findOne({ _id : roomId});        //main code.
     res.send(room);
         
       } catch (error) {

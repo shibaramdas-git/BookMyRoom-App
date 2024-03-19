@@ -6,7 +6,7 @@ import { Error } from "../components/Error";
 import moment from "moment";
 
 function Booknowscreen() {
-  let { roomid, fromDate, toDate } = useParams(); //returns obj from the url
+  let { roomId, fromDate, toDate } = useParams(); //returns obj from the url
   const [room, setRoom] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -23,7 +23,7 @@ function Booknowscreen() {
         setLoading(true);
         const res = await axios.post(
           "http://localhost:5000/api/rooms/getroombyid",
-          { roomid: roomid }
+          { roomId: roomId }
         );
         setRoom(res.data);
         console.log(room);
@@ -37,6 +37,22 @@ function Booknowscreen() {
     fetchData();
   }, []);
 
+  async function bookingDetails() {
+    const bookingDetails = {
+      room,
+      userId: JSON.parse(localStorage.getItem("currentUser"))._id,
+      fromDate,
+      toDate,
+      totalAmount: totalDays * room.rentPerDay,
+      totalDays
+    }
+    try {
+      const resData = (await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails)).data
+    } catch (error) {
+      console.error(error);
+    }
+    
+  }
   return (
     <>
       <div className="w-9/10">
@@ -55,6 +71,7 @@ function Booknowscreen() {
                 <div className="w-2/5">
                   <p>
                     <strong>Name : </strong>
+                    {JSON.parse(localStorage.getItem("currentUser")).name}
                   </p>
                   <p>
                     <strong>From date : </strong>
@@ -85,7 +102,7 @@ function Booknowscreen() {
                     <strong>Total amount : </strong>
                     {totalDays * room.rentPerDay} Rs only
                   </p>
-                  <button className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[4px] px-[10px] rounded mr-2">
+                  <button onClick={bookingDetails} className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[4px] px-[10px] rounded mr-2">
                     Pay Now
                   </button>
                 </div>
