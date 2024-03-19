@@ -17,7 +17,7 @@ function App() {
         <Routes>
         
           <Route path='/home' element={<Homescreen />} />
-          <Route path='/book/:roomid' element={<Booknowscreen />} />
+          <Route path='/book/:roomid/:fromDate/:toDate' element={<Booknowscreen />} />
           <Route path='/register' element={<Registerscreen />} />
           <Route path='/login' element={<Loginscreen />} />
 

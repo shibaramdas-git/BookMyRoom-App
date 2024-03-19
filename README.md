@@ -1,4 +1,9 @@
-task1. GitSetup Done.
-task2. react setup done. 
+Dependencies & their requirement.
+vite
+
+antd
+moment - to perform operations on date easily. (using Date() object is complicated)
+
+
 
 

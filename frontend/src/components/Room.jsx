@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom'
 
 
-export const Room = ({ room }) => {
+export const Room = ({ room , fromDate, toDate}) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ export const Room = ({ room }) => {
         <p>Type           :- {room.type} Rooms</p>
 
         <span className='float-right mb-3'>
-          <Link to={`/book/${room._id}`}> 
+          <Link to={`/book/${room._id}/${fromDate}/${toDate}`}> 
             <button className='bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[6px] px-[10px] rounded mr-2'>Book Now</button>
           </Link>
           <button onClick={() => setOpenModal(true)} className='bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[6px] px-[10px] rounded'>View Details</button>
