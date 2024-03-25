@@ -7,7 +7,7 @@ export const Room = ({ room, fromDate, toDate }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div className="border mt-2 flex shadow-md">
+    <div className="border mt-2 flex shadow-md bg-white rounded-sm" >
       <div className="w-[30%] p-2">
         <img
           src={room.imageUrls[0]}
@@ -16,7 +16,7 @@ export const Room = ({ room, fromDate, toDate }) => {
         />
       </div>
       <div className="ml-2 w-2/3 text-[15px]">
-        <h3 className="text-[20px] font-bold">{room.name}</h3>
+        <h3 className="text-[20px] font-bold pt-2">{room.name}</h3>
         <p>{room.address}</p>
         <p>Contact Number :- {room.contactNumber}</p>
         <p>Max Allowed :- {room.maxAllowed} Person</p>
@@ -47,10 +47,10 @@ export const Room = ({ room, fromDate, toDate }) => {
           onClose={() => setOpenModal(false)}
           size="lg"
         >
-          <Modal.Header className="py-2.5">
+          <Modal.Header className="py-3">
             <h3 className="font-bold text-2xl">{room.name}</h3>
           </Modal.Header>
-          <Modal.Body className="p-2.5">
+          <Modal.Body className="p-4">
             <div className="space-y-6">
               <div className="h-[270px] sm:h-64 xl:h-80 2xl:h-96 shadow-lg">
                 {/* Carousel image */}
@@ -67,11 +67,6 @@ export const Room = ({ room, fromDate, toDate }) => {
               <p className="text-base dark:text-gray-400 p-0 text-justify">
                 {room.description}
               </p>
-              <div className="mx-auto my-[-2px] p-0 w-1/4">
-                <button className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white text-[15px] font-bold p-2 rounded">
-                  Book Now
-                </button>
-              </div>
             </div>
           </Modal.Body>
         </Modal>

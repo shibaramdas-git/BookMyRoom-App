@@ -14,7 +14,9 @@ function Homescreen() {
   const [error, setError] = useState();
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
-  const [duplicateRooms, setDuplicateRooms] = useState([]);
+  const [duplicateRooms, setDuplicateRooms] = useState();
+  const [searchKey, setSearchKey] = useState("");
+  const [type, setType] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -73,28 +75,69 @@ function Homescreen() {
     }
   }
 
+  function filterBySearch() {
+    const tempRooms = duplicateRooms.filter((room) =>
+      room.name.toLowerCase().includes(searchKey.toLowerCase())
+    );
+    setRooms(tempRooms);
+  }
+
+  function filterByType(e) {
+    setType(e);
+    if (e.target.value !== "All") {
+      const tempRooms = duplicateRooms.filter(
+        (room) => room.type.toLowerCase() == e.target.value.toLowerCase()
+      );
+      setRooms(tempRooms);
+    } else {
+      setRooms(duplicateRooms);
+    }
+  }
   return (
-    <div id="home-screen" className="flex justify-end w-full ">
-      <div id="searchBar mx-auto w-4/5 p-0">
-        Select booking date
+    <div id="home-screen" className="flex justify-end w-full pb-4">
+      {/* Search section */}
+      <div id="searchBar" className="w-1/4 p-5 bg-white m-3 rounded-lg h-fit">
+        &nbsp;Select booking date
         <RangePicker
           format="DD-MM-YYYY"
-          className="bg-white"
+          className="my-2 p-[7px] bg-gray-50"
           onChange={filterByDate}
         />
+        <div>
+          &nbsp;Search here
+          <input
+            type="search"
+            id="search"
+            class="w-full p-2 my-2 ps-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search here"
+            value={searchKey}
+            onChange={(e) => setSearchKey(e.target.value)}
+            onKeyUp={filterBySearch}
+          />
+        </div>
+        <div>
+          &nbsp;Room type
+          <select
+            onChange={filterByType}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 my-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="All">All</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Non deluxe">Non-Deluxe</option>
+          </select>
+        </div>
       </div>
+      {/* Rooms section */}
       <div
         id="room-container"
-        className="flex flex-col content-evenly w-2/3 px-3 border-l"
+        className="flex flex-col content-evenly w-3/4 px-3 border-l"
       >
         {loading ? (
           <Loading />
-        ) : rooms.length > 0 ? ( //if loading is false => Check response from apicall got or not??
+        ) : (
           rooms.map((room) => {
             return <Room room={room} fromDate={fromDate} toDate={toDate} />;
           })
-        ) : (
-          <Error />
         )}
       </div>
     </div>

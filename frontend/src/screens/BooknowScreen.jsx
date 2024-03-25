@@ -4,12 +4,15 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import moment from "moment";
+import StripeCheckout from "react-stripe-checkout";
+import Swal from 'sweetalert2'
 
 function Booknowscreen() {
   let { roomId, fromDate, toDate } = useParams(); //returns obj from the url
   const [room, setRoom] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [totalAmount, setTotalAmount] = useState();
 
   //calculating diff. using moment.js
   const fromDateInMoment = moment(fromDate, "DD-MM-YY");
@@ -26,7 +29,7 @@ function Booknowscreen() {
           { roomId: roomId }
         );
         setRoom(res.data);
-        console.log(room);
+        setTotalAmount(res.data.rentPerDay * totalDays);
         setLoading(false);
       } catch (error) {
         setError(true);
@@ -37,21 +40,32 @@ function Booknowscreen() {
     fetchData();
   }, []);
 
-  async function bookingDetails() {
+  async function onToken(token) {
     const bookingDetails = {
       room,
       userId: JSON.parse(localStorage.getItem("currentUser"))._id,
       fromDate,
       toDate,
-      totalAmount: totalDays * room.rentPerDay,
-      totalDays
-    }
+      totalAmount,
+      totalDays,
+      token
+    };
     try {
-      const resData = (await axios.post('http://localhost:5000/api/bookings/bookroom', bookingDetails)).data
+      setLoading(true);
+      const result = (
+        await axios.post(
+          "http://localhost:5000/api/bookings/bookroom",
+          bookingDetails
+        )
+      );
+      Swal.fire('Congratulations!', 'Your room booked successfully', 'success').then(result => 
+        window.location.href='/myaccount');
+      setLoading(false);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      setLoading(false);
+      Swal.fire('Oops!!!', 'Something went wrong...', 'error');
     }
-    
   }
   return (
     <>
@@ -100,11 +114,20 @@ function Booknowscreen() {
                   </p>
                   <p>
                     <strong>Total amount : </strong>
-                    {totalDays * room.rentPerDay} Rs only
+                    {totalAmount} Rs only
                   </p>
-                  <button onClick={bookingDetails} className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[4px] px-[10px] rounded mr-2">
-                    Pay Now
-                  </button>
+                  <StripeCheckout
+                    currency="INR"
+                    amount={totalAmount * 100}
+                    token={onToken}
+                    stripeKey="pk_test_51OwDqpSD77LA0xvVGhF9yv6NO6c0zr24ByvCrRTAzseUDfpCwvMwUtsDJB7n5xrvGv1Y9ktuuiTxGaGPlLMj4fLL006OVhFWdU"
+                  >
+                    <button
+                      className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[4px] px-[10px] rounded mr-2"
+                    >
+                      Pay Now
+                    </button>
+                  </StripeCheckout>
                 </div>
                 <div className="w-3/5">
                   <h3 className="text-[18px] font-bold">{room.name}</h3>
