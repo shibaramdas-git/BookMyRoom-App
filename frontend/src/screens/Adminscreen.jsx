@@ -3,8 +3,7 @@ import { Tabs } from "antd";
 import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
-import Swal from 'sweetalert2'
-
+import Swal from "sweetalert2";
 
 export default function Adminscreen() {
   // First Check thar=t user is admin or not ..
@@ -14,7 +13,7 @@ export default function Adminscreen() {
     }
   }, []);
   return (
-    <div className="">
+    <div className="bg-slate-50 bg-opacity-30">
       <h1 className="text-center font-bold pt-3 text-lg underline">
         Admin Panel
       </h1>
@@ -306,23 +305,26 @@ export const Addrooms = () => {
         await axios.post("http://localhost:5000/api/rooms/addnewroom", newRoom)
       ).data;
       console.log(resData);
-      Swal.fire('Congratulation!',  'Your new room added successfully.', 'success').then(() =>{
-        window.location.href= '/home';
+      Swal.fire(
+        "Congratulation!",
+        "Your new room added successfully.",
+        "success"
+      ).then(() => {
+        window.location.href = "/home";
       });
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
       setError(true);
-      Swal.fire('Oops.', 'Something went wrong. Please try again.', 'error');
-
+      Swal.fire("Oops.", "Something went wrong. Please try again.", "error");
     }
   }
-
   return (
-    <div>
+    <div className=" bg-slate-50 mx-4 rounded-md p-4">
       {loading && <Loader />}
       {/* Input fields */}
+      <div className="font-bold text-[16px] h-[30px] mb-2 text-center bg-slate-600 w-1/2 mx-auto rounded-sm text-white">Enter Room details</div>
       <div className="flex">
         <div className="flex flex-col w-1/2 p-6">
           Room name

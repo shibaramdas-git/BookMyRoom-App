@@ -63,7 +63,7 @@ function Loginscreen() {
             Login
           </button>
         </div>
-        <div></div>
+        <div className="text-center">Not registered yet ? <a href="/register" className="hover:text-blue-500">Click here to register</a></div>
       </form>
     </div>
   );

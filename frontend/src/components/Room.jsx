@@ -6,6 +6,13 @@ import { Link } from "react-router-dom";
 export const Room = ({ room, fromDate, toDate }) => {
   const [openModal, setOpenModal] = useState(false);
 
+  function isLoggedIn () {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if(!user) {
+      window.location.href = '/login';
+    }
+  }
+
   return (
     <div className="border mt-2 flex shadow-md bg-white rounded-sm" >
       <div className="w-[30%] p-2">
@@ -26,7 +33,7 @@ export const Room = ({ room, fromDate, toDate }) => {
         <span className="float-right mb-3">
           {fromDate && toDate && (
             <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-              <button className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[6px] px-[10px] rounded mr-2">
+              <button onClick={isLoggedIn} className="bg-gray-800 active:bg-white active:text-black active:border active:border-black text-white font-bold py-[6px] px-[10px] rounded mr-2">
                 Book Now
               </button>
             </Link>

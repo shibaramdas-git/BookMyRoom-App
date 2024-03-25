@@ -15,16 +15,16 @@ export default function Myaccountscreen() {
   return (
     <div className="flex-col justify-center">
       {/* Headings -1.profile 2.bookings */}
-      <div className="flex justify-center mb-4 border-b-2 border-gray-200 dark:border-gray-700">
+      <div className="flex justify-center mb-4 border-b-2 border-gray-200 dark:border-gray-700 bg-slate-50 bg-opacity-60">
         <ul
-          className="flex flex-wrap -mb-px text-sm font-medium text-center"
+          className="flex flex-wrap -mb-px text-md font-bold text-center"
           id="default-tab"
           data-tabs-toggle="#default-tab-content"
           role="tablist"
         >
           <li className="me-2" role="presentation">
             <button
-              className="inline-block p-4 border-b-[4px] rounded-t-lg hover:text-gray-600 hover:border-gray-400 dark:hover:text-gray-300"
+              className="inline-block p-4 border-b-[4px] rounded-t-lg text-black hover:text-blue-600 hover:border-gray-400 dark:hover:text-gray-300"
               id="profile-tab"
               data-tabs-target="#profile"
               type="button"
@@ -53,7 +53,7 @@ export default function Myaccountscreen() {
       {/* Tab content */}
       <div id="default-tab-content">
         <div
-          className="hidden mx-auto w-[400px] rounded-md dark:bg-gray-800 border border-black shadow-lg"
+          className="hidden mx-auto w-[400px] h-[280px] rounded-md dark:bg-gray-800 border border-black shadow-lg bg-slate-50"
           id="profile"
           role="tabpanel"
           aria-labelledby="profile-tab"
@@ -131,7 +131,7 @@ export const Mybookings = () => {
       {bookedRooms &&
         bookedRooms.map((bookings) => {
           return (
-            <div className="border border-gray-800 shadow-lg mb-4 mx-auto w-full rounded-md">
+            <div className="border border-gray-800 shadow-lg mb-4 mx-auto w-full rounded-md bg-slate-50">
               <div className="h-[36px] w-full bg-slate-600 text-white font-bold m-0 text-center py-2 align-middle">
                 {bookings.room}
               </div>
@@ -185,11 +185,11 @@ export const Mybookings = () => {
                   {bookings.status == "Booked" ? "Confirmed" : "Cancelled"}
                 </p>
               </div>
-              <div className='flex justify-center '>
+              {/* <div className='flex justify-center '>
               <button className="bg-slate-800 active:bg-white active:text-black active:border active:border-black text-white py-[4px] px-[6px] mb-3 rounded">
                 Cancel booking
               </button>
-              </div>
+              </div> */}
             </div>
           );
         })}
