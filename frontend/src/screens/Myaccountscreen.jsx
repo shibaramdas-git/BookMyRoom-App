@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
+import { server_url } from '../assets/envVariables'
+
 
 export default function Myaccountscreen() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -110,7 +112,7 @@ export const Mybookings = () => {
         setLoading(true);
         const resData = (
           await axios.post(
-            "http://localhost:5000/api/bookings/getbookingsbyuserid",
+            `${server_url}/api/bookings/getbookingsbyuserid`,
             { userId: user._id }
           )
         ).data;

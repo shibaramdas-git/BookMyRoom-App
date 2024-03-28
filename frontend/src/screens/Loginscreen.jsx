@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios'
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
+import { server_url } from '../assets/envVariables'
 
 function Loginscreen() {
   const[email, setEmail] = useState('');
@@ -16,7 +17,7 @@ function Loginscreen() {
       }
       try {
         setLoading(true);
-        const resData = (await axios.post('http://localhost:5000/api/users/login', user)).data   //data? extracting data from res object
+        const resData = (await axios.post(`${server_url}/api/users/login`, user)).data   //data? extracting data from res object
         setLoading(false);
 
         localStorage.setItem('currentUser', JSON.stringify(resData));   //In localStorage we can't store - Arrays, Object.

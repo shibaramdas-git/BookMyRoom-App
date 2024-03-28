@@ -34,5 +34,5 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "vite": "^5.1.4"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "`${server_url}"
 }

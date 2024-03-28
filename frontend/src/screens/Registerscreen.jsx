@@ -3,6 +3,8 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import { Success } from "../components/Success";
+import { server_url } from '../assets/envVariables'
+
 
 function Registerscreen() {
   const [name, setName] = useState("");
@@ -24,7 +26,7 @@ function Registerscreen() {
       try {
         setLoading(true);
         const resData = (
-          await axios.post("http://localhost:5000/api/users/register", user)
+          await axios.post(`${server_url}/api/users/register`, user)
         ).data; //Extracting data from res object
         setLoading(false);
         setSuccess(true);

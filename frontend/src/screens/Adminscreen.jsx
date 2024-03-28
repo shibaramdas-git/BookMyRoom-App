@@ -4,6 +4,7 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import Swal from "sweetalert2";
+import { server_url } from '../assets/envVariables'
 
 export default function Adminscreen() {
   // First Check thar=t user is admin or not ..
@@ -55,7 +56,7 @@ export const Rooms = () => {
       try {
         setLoading(true);
         const resData = (
-          await axios.get("http://localhost:5000/api/rooms/getallrooms")
+          await axios.get(`${server_url}/api/rooms/getallrooms`)
         ).data;
         console.log(resData);
         setRooms(resData);
@@ -132,7 +133,7 @@ export const Bookings = () => {
       try {
         setLoading(true);
         const resData = (
-          await axios.get("http://localhost:5000/api/bookings/getallbookings")
+          await axios.get(`${server_url}/api/bookings/getallbookings`)
         ).data;
         console.log(resData);
         setBookings(resData);
@@ -211,7 +212,7 @@ export const Users = () => {
       try {
         setLoading(true);
         const resData = (
-          await axios.get("http://localhost:5000/api/users/getallusers")
+          await axios.get(`${server_url}/api/users/getallusers`)
         ).data;
         console.log(resData);
         setUsers(resData);
@@ -302,7 +303,7 @@ export const Addrooms = () => {
     try {
       setLoading(true);
       const resData = (
-        await axios.post("http://localhost:5000/api/rooms/addnewroom", newRoom)
+        await axios.post(`${server_url}/api/rooms/addnewroom`, newRoom)
       ).data;
       console.log(resData);
       Swal.fire(

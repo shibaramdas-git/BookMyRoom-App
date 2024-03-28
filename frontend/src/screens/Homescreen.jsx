@@ -7,6 +7,8 @@ import { Error } from "../components/Error";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
 import moment from "moment";
+import { server_url } from '../assets/envVariables'
+
 
 function Homescreen() {
   const [rooms, setRooms] = useState([]);
@@ -23,7 +25,7 @@ function Homescreen() {
       try {
         setLoading(true);
         const data = (
-          await axios.get("http://localhost:5000/api/rooms/getallrooms")
+          await axios.get(`${server_url}/api/rooms/getallrooms`)
         ).data; //data? extracting data from res object
         setRooms(data);
         setDuplicateRooms(data);

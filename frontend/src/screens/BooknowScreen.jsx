@@ -6,6 +6,8 @@ import { Error } from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+import { server_url } from '../assets/envVariables'
+
 
 function Booknowscreen() {
   let { roomId, fromDate, toDate } = useParams(); //returns obj from the url
@@ -25,7 +27,7 @@ function Booknowscreen() {
       try {
         setLoading(true);
         const res = await axios.post(
-          "http://localhost:5000/api/rooms/getroombyid",
+          `${server_url}/api/rooms/getroombyid`,
           { roomId: roomId }
         );
         setRoom(res.data);
@@ -53,7 +55,7 @@ function Booknowscreen() {
     try {
       setLoading(true);
       const result = await axios.post(
-        "http://localhost:5000/api/bookings/bookroom",
+        `${server_url}/api/bookings/bookroom`,
         bookingDetails
       );
       Swal.fire(
