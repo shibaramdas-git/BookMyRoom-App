@@ -6,6 +6,8 @@ const stripe = require("stripe")(
   "sk_test_51OwDqpSD77LA0xvVDYUvBUfO7W8MO63aCnMzY1oj0uj5QkuGv62j7VwuGUKljDau8toktTUKLPEIYRAzzajjswwz00RbQ25XXa"
 );
 const { v4: uuidv4 } = require("uuid"); //To generate a new uid whenever uuidv4() is called.
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Endpoint to handle payment & room booking.
 router.post("/bookroom", async (req, res) => {
@@ -27,8 +29,8 @@ router.post("/bookroom", async (req, res) => {
              quantity: totalDays,
           },
           ],
-          success_url: "http://localhost:5000/?success=true",
-          cancel_url: "http://localhost:5000/?canceled=true",
+          success_url: `${BASE_SERVERURL}/?success=true`,
+          cancel_url: `${BASE_SERVERURL}/?canceled=true`,
         },
         { idempotencyKey: uuidv4(), }
       )
