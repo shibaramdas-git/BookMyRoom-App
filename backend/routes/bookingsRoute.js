@@ -29,8 +29,8 @@ router.post("/bookroom", async (req, res) => {
              quantity: totalDays,
           },
           ],
-          success_url: `${BASE_SERVERURL}/?success=true`,
-          cancel_url: `${BASE_SERVERURL}/?canceled=true`,
+          success_url: `${process.env.BASE_SERVERURL}/?success=true`,
+          cancel_url: `${process.env.BASE_SERVERURL}/?canceled=true`,
         },
         { idempotencyKey: uuidv4(), }
       )
